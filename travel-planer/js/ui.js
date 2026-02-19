@@ -11,8 +11,8 @@ export function showResults(attractions, photos) {
     // Formatea los tipos de lugar para que no salgan juntos
     const kindsFormatted = (p.kinds || "No category")
       .split(",")
-      .map(k => k.replace(/_/g, " ")) // reemplaza guiones bajos por espacios
-      .join(", ");                     // separados por comas
+      .map(k => k.replace(/_/g, " "))
+      .join(", ");
 
     const card = document.createElement("div");
     card.className = "card";
@@ -27,7 +27,6 @@ export function showResults(attractions, photos) {
       </div>
     `;
 
-    // Evento para guardar en favoritos
     card.querySelector("button").addEventListener("click", () => {
       saveFavorite(p);
     });
@@ -35,3 +34,4 @@ export function showResults(attractions, photos) {
     container.appendChild(card);
   });
 }
+
