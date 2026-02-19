@@ -12,12 +12,15 @@ export function showResults(attractions, photos) {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${img}">
-      <h3>${p.name || "Unknown place"}</h3>
-      <p>📍 ${p.kinds}</p>
-      <p>⭐ Rating: ${p.rate || "N/A"}</p>
-      <button>Save</button>
-    `;
+  <img class="card-img" src="${img}" alt="${p.name || "Place"}">
+  <div class="card-content">
+    <h3>${p.name || "Unknown place"}</h3>
+    <p>📍 ${p.kinds || "No category"}</p>
+    <div class="rating">⭐ Rating: ${p.rate || "N/A"}</div>
+    <button>Save</button>
+  </div>
+`;
+
 
     card.querySelector("button").addEventListener("click", () => {
       saveFavorite(p);
