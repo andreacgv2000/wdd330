@@ -7,18 +7,24 @@ export function showResults(attractions, photos) {
   attractions.forEach((place, index) => {
     const p = place.properties;
     const img = photos[index]?.urls?.small || "https://via.placeholder.com/200";
+    const kindsFormatted = (p.kinds || "No category")
+  .split(",")
+  .map(k => k.replace(/_/g, " "))  // reemplaza guiones bajos por espacios
+  .join(", ");                      // o "\n" si quieres salto de línea
 
     const card = document.createElement("div");
     card.className = "card";
 
-    card.innerHTML = `
+  card.innerHTML = `
   <img class="card-img" src="${img}" alt="${p.name || "Place"}">
   <div class="card-content">
     <h3>${p.name || "Unknown place"}</h3>
-    <p>📍 ${p.kinds || "No category"}</p>
+    <p>📍 ${kindsFormatted}</p>
     <div class="rating">⭐ Rating: ${p.rate || "N/A"}</div>
     <button>Save</button>
   </div>
+`;
+
 `;
 
 
