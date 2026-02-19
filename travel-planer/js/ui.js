@@ -1,13 +1,11 @@
 import { saveFavorite } from "./storage.js";
 
-const container = document.getElementById("results");
-
 export function showResults(attractions, photos) {
+  const container = document.getElementById("results");
   container.innerHTML = "";
 
   attractions.forEach((place, index) => {
     const p = place.properties;
-
     const img = photos[index]?.urls?.small || "https://via.placeholder.com/200";
 
     const card = document.createElement("div");
@@ -28,4 +26,5 @@ export function showResults(attractions, photos) {
     container.appendChild(card);
   });
 }
+
 
