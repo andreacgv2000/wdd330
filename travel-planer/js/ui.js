@@ -1,16 +1,20 @@
 import { saveFavorite } from "./storage.js";
 
-export function displayResults(places) {
-  const container = document.getElementById("results");
+const container = document.getElementById("results");
+
+export function showResults(attractions, photos) {
   container.innerHTML = "";
 
-  places.forEach(place => {
+  attractions.forEach((place, index) => {
     const p = place.properties;
+
+    const img = photos[index]?.urls?.small || "https://via.placeholder.com/200";
 
     const card = document.createElement("div");
     card.className = "card";
 
     card.innerHTML = `
+      <img src="${img}">
       <h3>${p.name || "Unknown place"}</h3>
       <p>📍 ${p.kinds}</p>
       <p>⭐ Rating: ${p.rate || "N/A"}</p>
@@ -24,3 +28,4 @@ export function displayResults(places) {
     container.appendChild(card);
   });
 }
+
