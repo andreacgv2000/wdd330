@@ -7,25 +7,26 @@ export function showResults(attractions, photos) {
   attractions.forEach((place, index) => {
     const p = place.properties;
     const img = photos[index]?.urls?.small || "https://via.placeholder.com/200";
-
-    // Formatea los tipos de lugar
     const kindsFormatted = (p.kinds || "No category")
-      .split(",")
-      .map(k => k.replace(/_/g, " "))  // reemplaza guiones bajos por espacios
-      .join(", ");                      // o "\n" si quieres salto de línea
+  .split(",")
+  .map(k => k.replace(/_/g, " "))  // reemplaza guiones bajos por espacios
+  .join(", ");                      // o "\n" si quieres salto de línea
 
     const card = document.createElement("div");
     card.className = "card";
 
-    card.innerHTML = `
-      <img class="card-img" src="${img}" alt="${p.name || "Place"}">
-      <div class="card-content">
-        <h3>${p.name || "Unknown place"}</h3>
-        <p>📍 ${kindsFormatted}</p>
-        <div class="rating">⭐ Rating: ${p.rate || "N/A"}</div>
-        <button>Save</button>
-      </div>
-    `; // <-- cierre correcto del backtick
+  card.innerHTML = `
+  <img class="card-img" src="${img}" alt="${p.name || "Place"}">
+  <div class="card-content">
+    <h3>${p.name || "Unknown place"}</h3>
+    <p>📍 ${kindsFormatted}</p>
+    <div class="rating">⭐ Rating: ${p.rate || "N/A"}</div>
+    <button>Save</button>
+  </div>
+`;
+
+`;
+
 
     card.querySelector("button").addEventListener("click", () => {
       saveFavorite(p);
@@ -34,4 +35,5 @@ export function showResults(attractions, photos) {
     container.appendChild(card);
   });
 }
+
 
