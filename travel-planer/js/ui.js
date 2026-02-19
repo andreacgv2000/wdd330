@@ -27,14 +27,7 @@ export function showResults(attractions, photos) {
       </div>
     `;
 
-    card.querySelector("button").addEventListener("click", () => {
-      saveFavorite(p);
-    });
-
-
-
-
-     // Guardar en favoritos
+    // Guardar en favoritos (solo un listener)
     card.querySelector("button").addEventListener("click", () => {
       saveFavorite({
         name: p.name,
@@ -45,8 +38,6 @@ export function showResults(attractions, photos) {
       });
     });
 
-
     container.appendChild(card);
   });
 }
-
