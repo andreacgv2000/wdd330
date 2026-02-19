@@ -1,62 +1,32 @@
-// =========================
-// 🔐 KEYS (PON LAS TUYAS)
-// =========================
-
-const AMADEUS_API_KEY = "YSqELmAhv2b1DCT7Rdg17JGOcfAtsXSX";
-const AMADEUS_API_SECRET = "v0lhUCM6h5kAUjAC";
-const YELP_API_KEY = "TU_API_KEY_DE_YELP";
-
-// Proxy para evitar CORS
-const proxy = "https://cors-anywhere.herokuapp.com/";
+const OPENTRIPMAP_KEY = "5ae2e3f221c38a28845f05b6199dbd78d05a055a0f280bc1f19af6a6";
+const UNSPLASH_KEY = "o0w61pStB8M-9k_wsYV7StP_7sbBfrT_Vl6LExOUuvg";
 
 // =========================
-// 🟢 OBTENER TOKEN AMADEUS
+// 📍 Obtener coordenadas ciudad
 // =========================
-async function getAmadeusToken() {
-  const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `grant_type=client_credentials&client_id=${AMADEUS_API_KEY}&client_secret=${AMADEUS_API_SECRET}`
-  });
-
-  const data = await response.json();
-  return data.access_token;
+export async function getCityCoordinates(city) {
+  const url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${city}&apikey=${OPENTRIPMAP_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return { lat: data.lat, lon: data.lon };
 }
 
 // =========================
-// ✈️ DESTINOS DESDE CIUDAD (AMADEUS)
+// 🏛️ Obtener atracciones
 // =========================
-export async function getDestinations(originCityCode) {
-  const token = await getAmadeusToken();
-
-  const url = `https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=${originCityCode}&maxPrice=500`;
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-
-  const data = await response.json();
-  return data.data; // array de destinos
+export async function getAttractions(lat, lon) {
+  const url = `https://api.opentripmap.com/0.1/en/places/radius?radius=5000&lat=${lat}&lon=${lon}&limit=10&apikey=${OPENTRIPMAP_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.features;
 }
 
 // =========================
-// 🏨 ATRACCIONES Y RESTAURANTES (YELP)
+// 🖼️ Fotos ciudad
 // =========================
-export async function getAttractions(city) {
-  const url = `${proxy}https://api.yelp.com/v3/businesses/search?location=${city}&categories=attractions,restaurants&limit=10`;
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${YELP_API_KEY}`
-    }
-  });
-
-  const data = await response.json();
-  return data.businesses;
+export async function getCityPhotos(city) {
+  const url = `https://api.unsplash.com/search/photos?query=${city}&client_id=${UNSPLASH_KEY}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  return data.results;
 }

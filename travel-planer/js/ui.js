@@ -1,57 +1,26 @@
-import { saveFavorite, getFavorites, removeFavorite } from "./storage.js";
+import { saveFavorite } from "./storage.js";
 
-export function displayResults(data) {
-  const resultsDiv = document.getElementById("results");
-  resultsDiv.innerHTML = "";
+export function displayResults(places) {
+  const container = document.getElementById("results");
+  container.innerHTML = "";
 
-  data.forEach((place, index) => {
+  places.forEach(place => {
+    const p = place.properties;
+
     const card = document.createElement("div");
     card.className = "card";
 
-    const image = place.image_url || "https://via.placeholder.com/300";
-
     card.innerHTML = `
-      <img src="${image}" alt="${place.name}" class="card-img">
-      <h3>${place.name}</h3>
-      <p>⭐ Rating: ${place.rating}</p>
-      <p>📍 ${place.location.address1}</p>
-      <p>🍽️ Category: ${place.categories[0].title}</p>
-      <p>💲 Price: ${place.price || "N/A"}</p>
-      <p>📞 ${place.phone || "N/A"}</p>
+      <h3>${p.name || "Unknown place"}</h3>
+      <p>📍 ${p.kinds}</p>
+      <p>⭐ Rating: ${p.rate || "N/A"}</p>
       <button>Save</button>
     `;
 
     card.querySelector("button").addEventListener("click", () => {
-      saveFavorite(place);
-      displayFavorites();
+      saveFavorite(p);
     });
 
-    resultsDiv.appendChild(card);
-  });
-}
-
-export function displayFavorites() {
-  const favoriteDiv = document.getElementById("favoriteList");
-  favoriteDiv.innerHTML = "";
-
-  const favorites = getFavorites();
-
-  favorites.forEach((place, index) => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${place.image_url}" class="card-img">
-      <h3>${place.name}</h3>
-      <p>${place.location.address1}</p>
-      <button>Remove</button>
-    `;
-
-    card.querySelector("button").addEventListener("click", () => {
-      removeFavorite(index);
-      displayFavorites();
-    });
-
-    favoriteDiv.appendChild(card);
+    container.appendChild(card);
   });
 }
