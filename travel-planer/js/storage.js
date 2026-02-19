@@ -1,15 +1,29 @@
+// Guarda un lugar en LocalStorage
 export function saveFavorite(place) {
-  let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  favorites.push(place);
-  localStorage.setItem("favorites", JSON.stringify(favorites));
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+  // Evitar duplicados
+  if (!favorites.some(fav => fav.name === place.name)) {
+    favorites.push({
+      name: place.name,
+      kinds: place.kinds,
+      rate: place.rate,
+      location: place.location || "Unknown",
+      img: place.img || ""
+    });
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    alert(`${place.name} guardado en favoritos ✅`);
+  } else {
+    alert(`${place.name} ya está en favoritos ⚠️`);
+  }
 }
 
+// Recupera los favoritos
 export function getFavorites() {
   return JSON.parse(localStorage.getItem("favorites")) || [];
 }
 
-export function removeFavorite(index) {
-  let favorites = getFavorites();
-  favorites.splice(index, 1);
-  localStorage.setItem("favorites", JSON.stringify(favorites));
+// Limpiar favoritos (opcional)
+export function clearFavorites() {
+  localStorage.removeItem("favorites");
 }

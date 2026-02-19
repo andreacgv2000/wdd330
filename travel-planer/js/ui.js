@@ -31,6 +31,21 @@ export function showResults(attractions, photos) {
       saveFavorite(p);
     });
 
+
+
+
+     // Guardar en favoritos
+    card.querySelector("button").addEventListener("click", () => {
+      saveFavorite({
+        name: p.name,
+        kinds: kindsFormatted,
+        rate: p.rate,
+        location: p.location || "Unknown",
+        img: img
+      });
+    });
+
+
     container.appendChild(card);
   });
 }
