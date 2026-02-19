@@ -1,13 +1,12 @@
-import { getCityCoordinates, getAttractions } from "./api.js";
-import { displayResults } from "./ui.js";
+import { getImages } from "./api.js";
+import { showResults } from "./ui.js";
 
-document.getElementById("searchBtn").addEventListener("click", searchCity);
+const searchBtn = document.getElementById("searchBtn");
+const input = document.getElementById("searchInput");
 
-async function searchCity() {
-  const city = document.getElementById("searchInput").value;
+searchBtn.addEventListener("click", async () => {
+  const city = input.value;
 
-  const coords = await getCityCoordinates(city);
-  const places = await getAttractions(coords.lat, coords.lon);
-
-  displayResults(places);
-}
+  const photos = await getImages(city);
+  showResults(photos);
+});
