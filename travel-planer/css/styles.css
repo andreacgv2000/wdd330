@@ -1,67 +1,147 @@
+/* ===== Estilos generales ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #74a6eb, #acb6e5);
+  background: linear-gradient(to right, #7fa9ff, #9fc5ff);
+  color: #222;
 }
 
 header {
   text-align: center;
-  padding: 20px;
+  padding: 40px 20px;
 }
 
-input, button {
-  padding: 10px;
-  border-radius: 6px;
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+input {
+  padding: 12px;
+  width: 250px;
+  border-radius: 8px;
   border: none;
+  font-size: 1rem;
 }
 
 button {
-  background: #ff7b54;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #ff7a3d;
   color: white;
+  font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: background 0.3s, transform 0.3s;
 }
 
 button:hover {
-  transform: scale(1.1);
+  background: #ff5c1a;
+  transform: scale(1.05);
 }
 
 main {
   padding: 20px;
 }
 
-#results, #favoriteList {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
+section {
+  margin-bottom: 40px;
 }
 
+h2 {
+  margin-bottom: 10px;
+}
+
+/* ===== Contenedor de tarjetas ===== */
+#results, #favoriteList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+/* ===== Tarjetas ===== */
 .card {
   background: white;
   border-radius: 15px;
-  padding: 10px;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  animation: fadeIn 1s ease;
-  transition: transform 0.4s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.03);
+  transform: translateY(-5px) scale(1.02);
 }
 
+/* Imagen de la tarjeta */
 .card-img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: transform 0.5s;
+  height: 200px;
+  object-fit: cover; /* recorta la imagen para encajar */
 }
 
-.card-img:hover {
-  transform: scale(1.05);
+/* Contenido de la tarjeta */
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
+.card-content h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: #333;
 }
+
+.card-content p {
+  font-size: 0.9rem;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* máximo 3 líneas */
+  -webkit-box-orient: vertical;
+}
+
+.card-content .rating {
+  font-weight: bold;
+  color: #f5b50a;
+}
+
+.card-content button {
+  padding: 8px 15px;
+  border-radius: 8px;
+  border: none;
+  background: #ff7a3d;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.card-content button:hover {
+  background: #ff5c1a;
+}
+
+/* ===== Footer ===== */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: rgba(255,255,255,0.4);
+}
+
